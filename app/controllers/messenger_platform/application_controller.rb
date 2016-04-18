@@ -1,0 +1,2 @@
+class MessengerPlatform::ApplicationController
+end

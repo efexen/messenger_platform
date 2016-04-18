@@ -1,0 +1,5 @@
+= MessengerPlatform
+
+**WIP**
+
+This project aims to be a complete solution for integrations with the Facebook Messenger Platform.
