@@ -4,8 +4,7 @@ module MessengerPlatform
   end
 
   class << self
-    mattr_accessor :verify_token
-    mattr_accessor :access_token
+    mattr_accessor :verify_token, :access_token
   end
 
   def self.setup

@@ -1,4 +1,2 @@
 require "messenger_platform/engine"
-
-module MessengerPlatform
-end
+require "messenger_platform/subscriber"
