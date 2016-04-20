@@ -5,7 +5,7 @@ require "messenger_platform/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "messenger_platform"
+  s.name        = "messenger_platform_rails"
   s.version     = MessengerPlatform::VERSION
   s.authors     = ["FxN"]
   s.email       = ["fxn@fxndev.com"]

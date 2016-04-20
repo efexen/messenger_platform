@@ -1,4 +1,4 @@
-# Messenger Platform
+# Messenger Platform Rails
 
 This project aims to be a complete solution for integrating the Facebook Messenger Platform to your Rails application.
 
@@ -11,7 +11,7 @@ This project aims to be a complete solution for integrating the Facebook Messeng
 Add to your `Gemfile`
 
 ```
-gem "messenger_platform"
+gem "messenger_platform_rails"
 ```
 
 **Mount the engine**
