@@ -15,7 +15,7 @@ class MessengerPlatform::Subscriber
   private
 
   def subscription_url
-    "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=#{ MessengerPlatform.access_token }"
+    MessengerPlatform.facebook_api_base_url("subscribed_apps")
   end
 
 end
