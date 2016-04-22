@@ -81,7 +81,7 @@ end
 
 The message argument received is of type `MessengerPlatform::InboundMessage`
 
-### InboundMessage class
+#### InboundMessage class
 
 InboundMessage class contains parsed and raw data of the message received. It contains the following attributes
 
@@ -99,15 +99,80 @@ These more of less map directly to the attributes in the official Messenger Plat
 
 **Do note only basic text messages are currently implemented**
 
-### Contact class
+#### Contact class
 
-Contact class contains the id of the sender or the recipient
+Contact class contains the id and/or phone number of the sender or the recipient.
 
-|Attribute  |Example    |Explanation
-|----       |-----      |-----
-|id         | 123       | User ID
+|Attribute    |Example          |Explanation
+|----         |-----            |-----
+|id           | 123             | User ID
+|phone_number | +1(212)555-2368 | Users Phone Number
 
-## TODO 
+Valid Examples
+
+```ruby
+MessengerPlatform::Contact.new({ id: 12312312 })
+MessengerPlatform::Contact.new({ phone_number: '+1(212)555-1233' })
+MessengerPlatform::Contact.new({ id: 123123, phone_number: '+1(212)555-1233' })
+```
+
+If the contact class contains both id and phone number when serialized for sending messages; the id is preferred over the phone number when present.
+
+#### TextMessage class
+
+TextMessage class describes a basic message containing plain text to be sent to the user.
+
+|Attribute          |Example        |Explanation
+|------             |-----          |-----
+|recipient          |               | Instance of Contact class
+|message            |"Hello"        | Text to send in UTF8, max 320 characters
+|notification_type  |:silent_push   | Notification type, default :regular
+
+Valid notification types are `regular`, `silent_push`, `no_push` these map directly to the notification types in the official documentation <https://developers.facebook.com/docs/messenger-platform/send-api-reference#request>
+
+To send the message, call the `.deliver` instance method, this will create the appropriate POST request to Facebook API.
+
+Valid examples
+
+```ruby
+contact = MessengerPlatform::Contact.new({ id: 12312312 })
+
+MessengerPlatform::TextMessage.new(contact, "Hello") # => default notification type
+MessengerPlatform::TextMessage.new(contact, "Hi", :silent_push)
+MessengerPlatform::TextMessage.new(contact, "Yo", :no_push)
+
+```
+
+## Examples
+
+### Sending a text message example
+
+```ruby
+contact = MessengerPlatform::Contact.new({ id: 13123123 })
+message = MessengerPlatform::TextMessage(contact, "Hello there")
+
+message.deliver
+```
+
+### Echo service
+
+```ruby
+class MessageService
+
+    def initialize(message)
+        @message = message
+    end
+
+    def echo
+      reply = MessengerPlatform::TextMessage.new(@message.sender, @message.text)
+      reply.deliver
+    end
+
+end
+
+```
+
+## TODO
 
 Off the top of my head in no particular order
 
@@ -115,7 +180,6 @@ Off the top of my head in no particular order
 - Better documentation
 - Missing README sections: Contributing, Licence etc
 - CodeClimate, TravisCI etc
-- Ability to send basic text messages to a user
 - Support for complex messages with attachments 
 - Support for sending different types of messages to user
     - Structured Messages

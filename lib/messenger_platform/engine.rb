@@ -1,4 +1,5 @@
 module MessengerPlatform
+
   class Engine < ::Rails::Engine
     isolate_namespace MessengerPlatform
   end
@@ -11,6 +12,12 @@ module MessengerPlatform
 
   def self.setup
     yield self
+  end
+
+  def self.facebook_api_base_url(api_method)
+    uri = URI("https://graph.facebook.com/v2.6/me/#{ api_method }")
+    uri.query = URI.encode_www_form({ access_token: MessengerPlatform.access_token })
+    uri.to_s
   end
 
 end
