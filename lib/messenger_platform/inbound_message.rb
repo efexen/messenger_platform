@@ -5,19 +5,19 @@ class MessengerPlatform::InboundMessage
 
   def initialize(hash)
     @source_data = hash
-    @sender = MessengerPlatform::Contact.new(hash.fetch(:sender))
-    @recipient = MessengerPlatform::Contact.new(hash.fetch(:recipient))
-    @timestamp = hash.fetch(:timestamp)
+    @sender = MessengerPlatform::Contact.new(hash[:sender])
+    @recipient = MessengerPlatform::Contact.new(hash[:recipient])
+    @timestamp = hash[:timestamp]
 
-    @message_id = message.fetch(:mid)
-    @sequence = message.fetch(:seq)
-    @text = message.fetch(:text)
+    @message_id = message[:mid]
+    @sequence = message[:seq]
+    @text = message[:text]
   end
 
   private
 
   def message
-    source_data[:message] || {}
+    source_data.fetch(:message, {})
   end
 
 end

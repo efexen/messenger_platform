@@ -3,8 +3,8 @@ class MessengerPlatform::Contact
   attr_reader :id, :phone_number
 
   def initialize(hash)
-    @id = hash.fetch(:id)
-    @phone_number = hash.fetch(:phone_number)
+    @id = hash[:id]
+    @phone_number = hash[:phone_number]
   end
 
   def serialize
