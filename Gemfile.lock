@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    messenger_platform_rails (0.2.1)
+    messenger_platform_rails (0.3.0)
       httparty (~> 0.13)
       rails (~> 4.2)
 
