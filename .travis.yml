@@ -1,0 +1,18 @@
+language: ruby
+rvm:
+  - 2.0
+  - 2.1
+  - 2.2
+env:
+  - "RAILS_BRANCH=4-1-stable"
+  - "RAILS_BRANCH=4-2-stable"
+  - "RAILS_BRANCH=master"
+branches:
+  only:
+    - master
+notifications:
+  email:
+    recipients:
+      - fxn@fxndev.com
+    on_success: change
+    on_failure: always

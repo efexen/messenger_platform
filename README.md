@@ -1,4 +1,7 @@
 # Messenger Platform Rails
+[![Gem Version](https://badge.fury.io/rb/messenger_platform_rails.svg)](https://badge.fury.io/rb/messenger_platform_rails)
+[![Code Climate](https://codeclimate.com/github/efexen/messenger_platform/badges/gpa.svg)](https://codeclimate.com/github/efexen/messenger_platform)
+[![Build Status](https://travis-ci.org/efexen/messenger_platform.svg?branch=master)](https://travis-ci.org/efexen/messenger_platform)
 
 This project aims to be a complete solution for integrating the Facebook Messenger Platform to your Rails application.
 
