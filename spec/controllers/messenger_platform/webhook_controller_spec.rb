@@ -61,16 +61,44 @@ RSpec.describe MessengerPlatform::WebhookController, type: :controller do
       post :message, test_data
     end
 
-    it "initializes a new processor class" do
-      expect(MessageProcessor).to receive(:new).and_call_original
-      post :message, test_data
+    context "default configuration" do
+
+      it "initializes a new processor class" do
+        expect(MessageProcessor).to receive(:new).and_call_original
+        post :message, test_data
+      end
+
+      it "calls the process method of the processor class" do
+        expect_any_instance_of(MessageProcessor).to receive(:process)
+        post :message, test_data
+      end
+
     end
 
-    it "calls the process method of the processor class" do
-      expect_any_instance_of(MessageProcessor).to receive(:process)
-      post :message, test_data
-    end
+    context "custom processor" do
+      let(:test_processor) { double }
 
+      before do
+        allow(test_processor).to receive(:tester_method)
+        allow(test_processor).to receive(:new) { test_processor }
+        stub_const("TestMessageProcessor", test_processor)
+
+        MessengerPlatform.setup do |config|
+          config.processor_class = TestMessageProcessor
+          config.processor_method = :tester_method
+        end
+      end
+
+      it "initializes a new processor class" do
+        expect(TestMessageProcessor).to receive(:new) { test_processor }
+        post :message, test_data
+      end
+
+      it "calls the process method of the processor class" do
+        expect(test_processor).to receive(:tester_method)
+        post :message, test_data
+      end
+
+    end
   end
-
 end

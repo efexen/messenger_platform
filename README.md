@@ -5,8 +5,6 @@
 
 This project aims to be a complete solution for integrating the Facebook Messenger Platform to your Rails application.
 
-**Do note this project is very much Work in Progress**
-
 ## Installation
 
 **Install the Gem**
