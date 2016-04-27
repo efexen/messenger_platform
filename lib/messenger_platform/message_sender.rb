@@ -1,15 +1,15 @@
-require 'httparty'
+require 'faraday'
 
 class MessengerPlatform::MessageSender
 
   def self.deliver(message)
-    HTTParty.post(messages_url, {
-      body: message.serialize.to_json,
-      headers: {
-        'Content-Type' => 'application/json',
-        'Accept' => 'application/json'
-      }
-    })
+    connection = Faraday.new(url: messages_url)
+
+    connection.post do |req|
+      req.headers["Content-Type"] = "application/json"
+      req.headers["Accept"] = "application/json"
+      req.body = message.serialize.to_json
+    end
   end
 
   private

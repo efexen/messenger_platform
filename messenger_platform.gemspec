@@ -18,8 +18,10 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.2"
-  s.add_dependency "httparty", "~> 0.13"
+  s.add_dependency "faraday", "~> 0.9"
 
   s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'binding_of_caller'
+  s.add_development_dependency 'pry'
 
 end

@@ -56,7 +56,7 @@ RSpec.describe MessengerPlatform::WebhookController, type: :controller do
 
     it "initializes a new inbound message with message data" do
       expect(MessengerPlatform::InboundMessage)
-        .to(receive(:new).with(hash_including("sender", "recipient", "timestamp", "message")))
+        .to(receive(:new).with(hash_including("sender", "recipient", "timestamp", "message"))).and_call_original
 
       post :message, test_data
     end

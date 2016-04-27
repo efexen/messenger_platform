@@ -1,12 +1,12 @@
-require 'httparty'
+require 'faraday'
 
 class MessengerPlatform::Subscriber
 
   def subscribe
-    result = HTTParty.post(subscription_url, verify_peer: false)
+    result = Faraday.post(subscription_url)
 
-    if result.code == 200
-      puts "Subscribed successfully: #{ result.message }"
+    if result.success?
+      puts "Subscribed successfully"
     else
       fail "Error Subscribing: #{ result.body }"
     end

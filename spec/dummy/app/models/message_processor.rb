@@ -7,7 +7,10 @@ class MessageProcessor
   end
 
   def process
-    #oooooh
+    if message.text
+      reply = MessengerPlatform::TextMessage.new(message.sender, message.text)
+      reply.deliver
+    end
   end
 
 end

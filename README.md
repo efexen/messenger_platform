@@ -3,7 +3,16 @@
 [![Code Climate](https://codeclimate.com/github/efexen/messenger_platform/badges/gpa.svg)](https://codeclimate.com/github/efexen/messenger_platform)
 [![Build Status](https://travis-ci.org/efexen/messenger_platform.svg?branch=master)](https://travis-ci.org/efexen/messenger_platform)
 
-This project aims to be a complete solution for integrating the Facebook Messenger Platform to your Rails application.
+## Description
+
+Messenger Platform Rails aims to be a complete solution for integrating the Facebook Messenger Platform to your Rails application.
+
+Currently it provides following capabilities:
+
+- Respond to Facebook Webhook verification challenge
+- Subscribe App to a Page
+- Receive text messages from users
+- Send text messages to users
 
 ## Installation
 
@@ -109,6 +118,8 @@ Contact class contains the id and/or phone number of the sender or the recipient
 |id           | 123             | User ID
 |phone_number | +1(212)555-2368 | Users Phone Number
 
+If the contact class contains both id and phone number when serialized for sending messages; the id is preferred over the phone number when present.
+
 Valid Examples
 
 ```ruby
@@ -116,8 +127,6 @@ MessengerPlatform::Contact.new({ id: 12312312 })
 MessengerPlatform::Contact.new({ phone_number: '+1(212)555-1233' })
 MessengerPlatform::Contact.new({ id: 123123, phone_number: '+1(212)555-1233' })
 ```
-
-If the contact class contains both id and phone number when serialized for sending messages; the id is preferred over the phone number when present.
 
 #### TextMessage class
 
@@ -165,27 +174,35 @@ class MessageService
     end
 
     def echo
-      reply = MessengerPlatform::TextMessage.new(@message.sender, @message.text)
-      reply.deliver
+      if @message.text # Some messages are delivery notices without text
+        reply = MessengerPlatform::TextMessage.new(@message.sender, @message.text)
+        reply.deliver
+      end
     end
 
 end
 
 ```
 
-## TODO
+## Versioning
 
-Off the top of my head in no particular order
+Semantic versioning (http://semver.org/spec/v2.0.0.html) is used. 
 
-- Tests
-- Better documentation
-- Missing README sections: Contributing, Licence etc
-- CodeClimate, TravisCI etc
-- Support for complex messages with attachments 
-- Support for sending different types of messages to user
-    - Structured Messages
-- Support for structured message postbacks
-- Additional Facebook APIs that support the usage such as Profile API
-- "Send to Messenger" button helpers
-- "Message Us" button helpers
-- Messenger Code?
+For a version number MAJOR.MINOR.PATCH, unless MAJOR is 0:
+
+1. MAJOR version is incremented when incompatible API changes are made,
+2. MINOR version is incremented when functionality is added in a backwards-compatible manner, 
+3. PATCH version is incremented when backwards-compatible bug fixes are made.
+
+Major version "zero" (0.y.z) is for initial development. Anything may change at any time. 
+The public API should not be considered stable. 
+Furthermore, version "double-zero" (0.0.x) is not intended for public use, 
+as even minimal functionality is not guaranteed to be implemented yet.
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
