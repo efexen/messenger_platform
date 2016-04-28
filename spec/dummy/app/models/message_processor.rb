@@ -13,4 +13,6 @@ class MessageProcessor
     end
   end
 
+  def dummy_process; end
+
 end

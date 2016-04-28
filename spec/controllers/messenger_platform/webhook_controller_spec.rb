@@ -34,6 +34,7 @@ RSpec.describe MessengerPlatform::WebhookController, type: :controller do
   end
 
   describe ".message" do
+
     let(:test_data) do
       { entry: [{ messaging: [
         {

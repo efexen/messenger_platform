@@ -6,9 +6,9 @@ class MessengerPlatform::Subscriber
     result = Faraday.post(subscription_url)
 
     if result.success?
-      puts "Subscribed successfully"
+      Rails.logger.info "Subscribed successfully"
     else
-      fail "Error Subscribing: #{ result.body }"
+      Rails.logger.fatal "Error Subscribing: #{ result.body }"
     end
   end
 
