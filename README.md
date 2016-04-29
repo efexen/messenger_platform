@@ -11,7 +11,8 @@ Currently it provides following capabilities:
 
 - Respond to Facebook Webhook verification challenge
 - Subscribe App to a Page
-- Receive text messages from users
+- Receive text messages
+- Receive messages with attachments
 - Send text messages to users
 
 ## Installation
@@ -103,11 +104,14 @@ InboundMessage class contains parsed and raw data of the message received. It co
 |message_id     |mid.1457764197618:41d102a3e1ae206a38 | Message Id
 |sequence       |73 | Message Sequence Number
 |text           |"Helloo"   | Text of the message
+|attachments    |[]         | Array of MessengerPlatform::Attachment instances
 
 These more of less map directly to the attributes in the official Messenger Platform documentation
 <https://developers.facebook.com/docs/messenger-platform/webhook-reference#received_message>
 
-**Do note only basic text messages are currently implemented**
+The message may contain several attachments, convenience method '.attachments?' can be used to check for presence of attachments.
+
+Messages with no attachments will respond to `.attachments` with an empty array.
 
 #### Contact class
 
@@ -126,6 +130,27 @@ Valid Examples
 MessengerPlatform::Contact.new({ id: 12312312 })
 MessengerPlatform::Contact.new({ phone_number: '+1(212)555-1233' })
 MessengerPlatform::Contact.new({ id: 123123, phone_number: '+1(212)555-1233' })
+```
+
+#### Attachment class
+
+Attachment class contains the type and url of the message attachment as well as several convenience methods for type.
+
+|Attribute    |Example                  |Explanation
+|-----        |------                   |------
+|type         |"image"                  | Type of attachment, see below for valid types
+|url          |"http://...bunnies.png"  | URL that can be used to retrieve the attachment"
+
+Valid types are `image`, `video` and `audio`, convenience methods `image?`, `video?` and `audio?` can be used to check for the type.
+
+Valid Examples
+
+```ruby
+attachment = MessengerPlatform::Attachment.new({ type: "image", url: "bunnies.png" })
+
+attachment.image? #=> true
+attachment.video? #=> false
+attachment.url #=> "bunnies.png"
 ```
 
 #### TextMessage class

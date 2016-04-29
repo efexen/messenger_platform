@@ -5,6 +5,7 @@ require "messenger_platform/contact"
 require "messenger_platform/message_base"
 require "messenger_platform/text_message"
 require "messenger_platform/message_sender"
+require "messenger_platform/attachment"
 
 module MessengerPlatform
 
