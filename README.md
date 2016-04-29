@@ -104,12 +104,12 @@ InboundMessage class contains parsed and raw data of the message received. It co
 |message_id     |mid.1457764197618:41d102a3e1ae206a38 | Message Id
 |sequence       |73 | Message Sequence Number
 |text           |"Helloo"   | Text of the message
-|attachments    |[]         | Array of MessengerPlatform::Attachment instances
+|attachments    |[ ]         | Array of MessengerPlatform::Attachment instances
 
-These more of less map directly to the attributes in the official Messenger Platform documentation
+These more or less map directly to the attributes in the official Messenger Platform documentation
 <https://developers.facebook.com/docs/messenger-platform/webhook-reference#received_message>
 
-The message may contain several attachments, convenience method '.attachments?' can be used to check for presence of attachments.
+The message may contain several attachments, convenience method `.attachments?` can be used to check for presence of attachments.
 
 Messages with no attachments will respond to `.attachments` with an empty array.
 
@@ -139,7 +139,7 @@ Attachment class contains the type and url of the message attachment as well as 
 |Attribute    |Example                  |Explanation
 |-----        |------                   |------
 |type         |"image"                  | Type of attachment, see below for valid types
-|url          |"http://...bunnies.png"  | URL that can be used to retrieve the attachment"
+|url          |"http://...bunnies.png"  | URL that can be used to retrieve the attachment
 
 Valid types are `image`, `video` and `audio`, convenience methods `image?`, `video?` and `audio?` can be used to check for the type.
 
