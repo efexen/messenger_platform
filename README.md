@@ -14,6 +14,7 @@ Currently it provides following capabilities:
 - Receive text messages
 - Receive messages with attachments
 - Send text messages to users
+- Send images to users
 
 ## Installation
 
@@ -178,6 +179,18 @@ MessengerPlatform::TextMessage.new(contact, "Yo", :no_push)
 
 ```
 
+#### ImageMessage class
+
+ImageMessage class describes an outbound message containing a single image attachment that can be sent to a user.
+
+|Attribute          |Example                          |Explanation
+|------             |-----                            |-----
+|recipient          |                                 | Instance of Contact class
+|image_url          |"http://something.com/image.png" | URL for the image
+|notification_type  |:silent_push                     | Notification type, default :regular
+
+ImageMessages have the same interface as text messages so calling `.deliver` will send the message
+
 ## Examples
 
 ### Sending a text message example
@@ -185,6 +198,15 @@ MessengerPlatform::TextMessage.new(contact, "Yo", :no_push)
 ```ruby
 contact = MessengerPlatform::Contact.new({ id: 13123123 })
 message = MessengerPlatform::TextMessage(contact, "Hello there")
+
+message.deliver
+```
+
+### Sending an image message example
+
+```ruby
+contact = MessengerPlatform::Contact.new({ id: 13123123 })
+message = MessengerPlatform::ImageMessage(contact, "http://mydomain.com/images/myimage.png")
 
 message.deliver
 ```
